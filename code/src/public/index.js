@@ -11,6 +11,15 @@ var app = angular.module("ask", []);
 //     }
 // });
 
-// app.controller("main", function ($scope) {
-//
-// });
+app.controller("main", function ($scope, $http) {
+
+    $scope.currentUser = null;
+
+    $http.post(ucai.ServerApis.getUser).then(function (result) {
+        console.log(result.data);
+
+        if (result.data.code == 1) {
+            $scope.currentUser = result.data.result;
+        }
+    });
+});

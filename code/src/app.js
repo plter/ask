@@ -15,7 +15,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(require("./ts/db/OrmConfig"));
+app.use(require("./source/db/OrmConfig"));
 app.use(session({
     secret: "ask",
     resave: false,
@@ -31,6 +31,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
+app.use('/apis', require("./routes/apis/index"));
 app.use('/users', require("./routes/users/index"));
 
 // catch 404 and forward to error handler

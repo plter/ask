@@ -22,7 +22,7 @@ gulp.task("copy_js_files", function () {
     gulp.src(`${sourceDir}/bin/www`).pipe(gulp.dest(`${destDir}/bin`));
     gulp.src(`${sourceDir}/app.js`).pipe(gulp.dest(destDir));
     gulp.src(`${sourceDir}/routes/**/*.js`).pipe(gulp.dest(`${destDir}/routes`));
-    gulp.src(`${sourceDir}/ts/**/*.js`).pipe(gulp.dest(`${destDir}/ts`));
+    gulp.src(`${sourceDir}/source/**/*.js`).pipe(gulp.dest(`${destDir}/ts`));
 });
 
 gulp.task("default", [
