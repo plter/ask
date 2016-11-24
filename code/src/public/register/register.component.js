@@ -4,10 +4,11 @@
 
 angular.module("register").component("register", {
     templateUrl: "register/register.template.htm",
-    controller: function ($scope, $http) {
+    controller: function ($scope, $http, $location) {
         $scope.login = "";
         $scope.pass = "";
         $scope.passConfirm = "";
+        $scope.loading = false;
 
         $scope.formSubmitHandler = function () {
 
@@ -17,15 +18,18 @@ angular.module("register").component("register", {
             }
             ucai.hideAlert();
 
+            $scope.loading = true;
             $http.post(ucai.ServerApis.register, {
                 login: $scope.login,
                 pass: md5($scope.pass)
             }).then(function (result) {
+                $scope.loading = false;
                 console.log(result);
 
                 switch (result.data.code) {
                     case 1:
-                        //TODO navigate to a page
+                        ucai.currentUser = result.data.result;
+                        $location.path("/profile");
                         break;
                     case 1062:
                         ucai.showAlert("该用户名已被占用");

@@ -29,8 +29,30 @@ module.exports = function (router) {
         }
     }
 
+    function checkUserIdInput(req, res, next) {
+        if (req.body.userid) {
+            next();
+        } else {
+            res.json(Status.makeResult(Status.STATE_NO_USER_ID_PASS, Status.STATE_NO_USER_ID_PASS_MESSAGE));
+        }
+    }
+
+    /**
+     * 检查当前用户的权限
+     * @param req
+     * @param res
+     * @param next
+     */
+    function checkCurrentUser(req, res, next) {
+        if (req.session.currentUser && req.session.currentUser.id == req.body.userid) {
+            next();
+        } else {
+            res.json(Status.makeResult(Status.STATE_ACCESS_DENIED_CAN_NOT_UPDATE_OTHERS, Status.STATE_ACCESS_DENIED_CAN_NOT_UPDATE_OTHERS_MESSAGE));
+        }
+    }
+
     /* GET users listing. */
-    router.all('/users/getuser', function (req, res, next) {
+    router.all('/users/getcurrentuser', function (req, res, next) {
         if (req.session.currentUser) {
             res.json(Status.makeResult(Status.STATE_OK, Status.STATE_OK_MESSAGE, req.session.currentUser));
         } else {
@@ -44,9 +66,13 @@ module.exports = function (router) {
         req.models.Member.create({
             login: req.body.login,
             pass: md5(req.body.pass)
-        }, function (err) {
+        }, function (err, user) {
             if (!err) {
-                res.json(Status.makeResult(Status.STATE_OK, Status.STATE_OK_MESSAGE));
+                req.session.currentUser = {
+                    id: user.id,
+                    login: user.login
+                };
+                res.json(Status.makeResult(Status.STATE_OK, Status.STATE_OK_MESSAGE, user));
             } else {
                 console.log(err);
                 res.json(Status.makeResult(err.errno, err.code));
@@ -58,7 +84,51 @@ module.exports = function (router) {
     router.post("/users/login", checkPasswordInput);
     router.post('/users/login', function (req, res) {
         if (!req.body.login) {
-
+            //TODO login
         }
+    });
+
+    router.post("/users/getuser", checkUserIdInput);
+    router.post("/users/getuser", function (req, res) {
+        req.models.Member.get(req.body.userid, function (err, user) {
+            if (!err) {
+                let userCopy = {};
+                for (let k in user) {
+                    userCopy[k] = user[k];
+                }
+                delete userCopy.pass;
+                res.json(Status.makeResult(Status.STATE_OK, Status.STATE_OK_MESSAGE, userCopy));
+            } else {
+                res.json(Status.makeResult(err.errno, err.code));
+            }
+        });
+    });
+
+    router.post("/users/update", checkUserIdInput);
+    router.post("/users/update", checkUserLoginNameInput);
+    router.post("/users/update", checkCurrentUser);
+    router.post("/users/update", function (req, res) {
+        req.models.Member.get(req.body.userid, function (err, user) {
+            if (!err) {
+                user.login = req.body.login;
+                user.email = req.body.email;
+                user.phone = req.body.phone;
+                user.name = req.body.name;
+                user.surname = req.body.surname;
+                user.gender = req.body.gender;
+                user.id_card = req.body.id_card;
+                user.nickname = req.body.nickname;
+
+                user.save(function (err) {
+                    if (!err) {
+                        res.json(Status.makeResult(Status.STATE_OK, Status.STATE_OK_MESSAGE));
+                    } else {
+                        res.json(Status.makeResult(err.errno, err.code));
+                    }
+                });
+            } else {
+                res.json(Status.makeResult(err.erron, err.code));
+            }
+        });
     });
 };

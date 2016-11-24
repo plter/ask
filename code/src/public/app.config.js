@@ -9,5 +9,7 @@ angular.module("ask").config(["$locationProvider", "$routeProvider", function ($
         template: "<register></register>"
     }).when("/login", {
         template: "<login></login>"
+    }).when("/profile", {
+        template: "<profile></profile>"
     });
 }]);

@@ -16,8 +16,8 @@
                    aria-describedby="basic-addon3" ng-model="passConfirm">
         </div>
         <div class="input-group">
-            <input type="submit" class="btn btn-primary" value="注册">
-            <input type="reset" class="btn btn-default" value="重填">
+            <input ng-disabled="loading" type="submit" class="btn btn-primary" value="注册">
+            <input ng-disabled="loading" type="reset" class="btn btn-default" value="重填">
             <a href="#!/login">已有帐号？点此登陆</a>
         </div>
     </div>

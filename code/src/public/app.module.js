@@ -2,23 +2,20 @@
  * Created by plter on 2016/11/22.
  */
 
+window.ucai = window.ucai || {};
+
 var app = angular.module("ask", [
     "ngRoute",
     "register",
-    "login"
+    "login",
+    "profile"
 ]);
 
-// app.component("register", {
-//     templateUrl: "register.htm",
-//     controller: function ($scope) {
-//
-//     }
-// });
-
 app.controller("main", function ($scope, $http, $location) {
-    $http.post(ucai.ServerApis.getUser).then(function (result) {
+    $http.post(ucai.ServerApis.getCurrentUser).then(function (result) {
         if (result.data.code == 1) {
-            console.log(result);
+            ucai.currentUser = result.data.result;
+            //TODO 呈现问题列表
         } else {
             $location.path("/login");
         }
