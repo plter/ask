@@ -10,14 +10,17 @@
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
 
     <script src="ServerApis.js"></script>
-    <script src="index.js"></script>
+    <script src="app.module.js"></script>
+    <script src="app.config.js"></script>
     <script src="header.component.js"></script>
-    <script src="register.component.js"></script>
+    <script src="register/register.module.js"></script>
+    <script src="register/register.component.js"></script>
 </head>
 <body ng-controller="main">
 <ng-header>Loading...</ng-header>
-<register ng-if="!currentUser"></register>
+<div ng-view></div>
 </body>
 </html>
