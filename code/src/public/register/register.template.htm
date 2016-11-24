@@ -1,1 +1,30 @@
-<h1>注册</h1>
+<form ng-submit="formSubmitHandler();">
+
+    <div class="register-form-alert alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+        <span class="alert-content">Content</span>
+    </div>
+
+    <div>
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">帐号：</span>
+            <input required="required" type="text" class="form-control" placeholder="用户名"
+                   aria-describedby="basic-addon1" ng-model="login">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon2">密码：</span>
+            <input required="required" type="password" class="form-control" placeholder="密码"
+                   aria-describedby="basic-addon2" ng-model="pass">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon3">确认：</span>
+            <input required="required" type="password" class="form-control" placeholder="密码确认"
+                   aria-describedby="basic-addon3" ng-model="passConfirm">
+        </div>
+        <div class="input-group">
+            <input type="submit" class="btn btn-primary" value="注册">
+            <input type="reset" class="btn btn-default" value="重填">
+        </div>
+    </div>
+</form>
