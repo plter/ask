@@ -5,16 +5,8 @@ const Status = require("../../source/Status");
 const express = require("express");
 const router = express.Router();
 
-/* GET users listing. */
-router.all('/getuser', function (req, res, next) {
-    if (req.session.currentUser) {
-        res.json(Status.makeResult(Status.STATE_OK, Status.STATE_OK_MESSAGE, req.session.currentUser));
-    } else {
-        res.json(Status.makeResult(Status.STATE_NO_USER_LOGGED, Status.STATE_NO_USER_LOGGED_MESSAGE));
-    }
-});
 
-router.all('/config', function (req, res) {
+router.all('/site/config', function (req, res) {
     req.models.Config.find({}, function (err, result) {
         if (!err) {
             let obj = {};
@@ -28,5 +20,8 @@ router.all('/config', function (req, res) {
         }
     });
 });
+
+
+require("./users")(router);
 
 module.exports = router;

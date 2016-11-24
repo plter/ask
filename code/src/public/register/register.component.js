@@ -4,28 +4,37 @@
 
 angular.module("register").component("register", {
     templateUrl: "register/register.template.htm",
-    controller: function ($scope) {
+    controller: function ($scope, $http) {
         $scope.login = "";
         $scope.pass = "";
         $scope.passConfirm = "";
 
-        var alertDiv = $(".register-form-alert");
-        alertDiv.hide();
-        alertDiv.find(".close").click(function () {
-            alertDiv.hide("fast");
-        });
-        var alertContent = alertDiv.find(".alert-content");
-
         $scope.formSubmitHandler = function () {
 
             if ($scope.pass != $scope.passConfirm) {
-                alertContent.html("密码确认不一致");
-                alertDiv.show("fast");
+                ucai.showAlert("密码确认不一致");
                 return;
             }
-            alertDiv.hide("fast");
+            ucai.hideAlert();
 
-            //TODO connect server to perform the register action
+            $http.post(ucai.ServerApis.register, {
+                login: $scope.login,
+                pass: md5($scope.pass)
+            }).then(function (result) {
+                console.log(result);
+
+                switch (result.data.code) {
+                    case 1:
+                        //TODO navigate to a page
+                        break;
+                    case 1062:
+                        ucai.showAlert("该用户名已被占用");
+                        break;
+                    default:
+                        ucai.showAlert("未知错误");
+                        break;
+                }
+            })
         }
     }
 });

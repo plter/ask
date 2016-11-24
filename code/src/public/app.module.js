@@ -4,7 +4,8 @@
 
 var app = angular.module("ask", [
     "ngRoute",
-    "register"
+    "register",
+    "login"
 ]);
 
 // app.component("register", {
@@ -19,7 +20,7 @@ app.controller("main", function ($scope, $http, $location) {
         if (result.data.code == 1) {
             console.log(result);
         } else {
-            $location.path("/register");
+            $location.path("/login");
         }
     });
 });
