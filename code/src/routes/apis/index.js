@@ -14,4 +14,19 @@ router.all('/getuser', function (req, res, next) {
     }
 });
 
+router.all('/config', function (req, res) {
+    req.models.Config.find({}, function (err, result) {
+        if (!err) {
+            let obj = {};
+            for (let item of result) {
+                obj[item.name] = item.value;
+            }
+
+            res.json(Status.makeResult(Status.STATE_OK, Status.STATE_OK_MESSAGE, obj));
+        } else {
+            res.json(Status.makeResult(err.errno, err.code));
+        }
+    });
+});
+
 module.exports = router;

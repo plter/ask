@@ -5,5 +5,6 @@
 window.ucai = window.ucai || {};
 
 ucai.ServerApis = {
-    getUser: "/apis/getuser"
+    getUser: "/apis/getuser",
+    config: "/apis/config"
 };

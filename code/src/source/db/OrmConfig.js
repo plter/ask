@@ -19,6 +19,11 @@ module.exports = orm.express("mysql://root:@localhost/ask", {
             nickname: String,
             gender: [1/*male*/, 2/*female*/]
         });
+        models.Config = db.define("config", {
+            id: Number,
+            name: String,
+            value: String
+        });
         next();
     }
 });
