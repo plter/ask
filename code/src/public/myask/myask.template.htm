@@ -1,0 +1,18 @@
+<h3>提出问题</h3>
+<form ng-submit="formSubmitHandler()">
+    <div>
+        <div class="input-group">
+            <div>问题：</div>
+            <input style="width: 500px;" required="required" type="text" class="form-control" placeholder="问题标题"
+                   ng-model="title">
+        </div>
+        <div class="input-group">
+            <div>问题描述：</div>
+            <textarea style="width: 500px;height: 150px;" class="form-control" placeholder="问题内容"
+                      ng-model="content"></textarea>
+        </div>
+        <div class="input-group">
+            <input class="btn btn-primary" type="submit" value="提交问题">
+        </div>
+    </div>
+</form>

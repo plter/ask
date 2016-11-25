@@ -5,7 +5,7 @@
 const {
     checkUserLoginNameInput,
     checkPasswordInput
-} = require("./precheck");
+} = require("../precheck");
 const Status = require("../../../source/Status");
 const md5 = require("md5-js");
 const {cloneObject} = require("../../../source/functions");
@@ -19,6 +19,7 @@ module.exports = function (router) {
                 if (result.length) {
                     let user = result[0];
                     if (user.pass == md5(req.body.pass)) {
+                        req.session.currentUser = user;
                         let clonedUser = cloneObject(user);
                         delete clonedUser.pass;
                         res.json(Status.makeResult(Status.STATE_OK, Status.STATE_OK_MESSAGE, clonedUser));

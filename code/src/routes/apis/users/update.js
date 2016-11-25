@@ -7,7 +7,7 @@ const {
     checkUserIdInput,
     checkUserLoginNameInput,
     checkCurrentUser
-} = require("./precheck");
+} = require("../precheck");
 
 module.exports = function (router) {
     router.post("/users/update", checkUserIdInput);

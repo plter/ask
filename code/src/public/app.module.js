@@ -9,11 +9,14 @@ var app = angular.module("ask", [
     "register",
     "login",
     "profile",
-    "about"
+    "about",
+    "myask"
 ]);
 
 app.controller("main", function ($scope, $http, $location) {
     $http.post(ucai.ServerApis.getCurrentUser).then(function (result) {
+
+        console.log(result);
         if (result.data.code == 1) {
             ucai.currentUser = result.data.result;
             //TODO 呈现问题列表

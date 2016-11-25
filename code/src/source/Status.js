@@ -19,6 +19,8 @@ module.exports = {
     STATE_PASSWORD_ERROR_MESSAGE: "Password error",
     STATE_ACCESS_DENIED_CAN_NOT_UPDATE_OTHERS: 11001,
     STATE_ACCESS_DENIED_CAN_NOT_UPDATE_OTHERS_MESSAGE: "Access denied due to can not update others",
+    STATE_NO_TITLE_INPUT: 12001,
+    STATE_NO_TITLE_INPUT_MESSAGE: "No title input",
 
     makeResult: function (code, message, result) {
         const obj = {code: code, message: message};

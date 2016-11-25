@@ -13,5 +13,7 @@ angular.module("ask").config(["$locationProvider", "$routeProvider", function ($
         template: "<profile></profile>"
     }).when("/about", {
         template: "<about></about>"
+    }).when("/myask", {
+        template: "<myask></myask>"
     });
 }]);

@@ -2,7 +2,7 @@
  * Created by plter on 2016/11/25.
  */
 
-const Status = require("../../../source/Status");
+const Status = require("../../source/Status");
 
 /**
  * 用于检查是否有用户登陆名传入，该函数必须用于处理post请求

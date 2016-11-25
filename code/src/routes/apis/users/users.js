@@ -9,7 +9,7 @@ const {
     checkUserLoginNameInput,
     checkCurrentUser,
     checkUserIdInput
-} = require("./precheck");
+} = require("../precheck");
 const {
     cloneObject
 } = require("../../../source/functions");
@@ -20,7 +20,9 @@ module.exports = function (router) {
     /* GET users listing. */
     router.all('/users/getcurrentuser', function (req, res, next) {
         if (req.session.currentUser) {
-            res.json(Status.makeResult(Status.STATE_OK, Status.STATE_OK_MESSAGE, req.session.currentUser));
+            let user = cloneObject(req.session.currentUser);
+            delete user.pass;
+            res.json(Status.makeResult(Status.STATE_OK, Status.STATE_OK_MESSAGE, user));
         } else {
             res.json(Status.makeResult(Status.STATE_NO_USER_LOGGED, Status.STATE_NO_USER_LOGGED_MESSAGE));
         }
@@ -34,10 +36,7 @@ module.exports = function (router) {
             pass: md5(req.body.pass)
         }, function (err, user) {
             if (!err) {
-                req.session.currentUser = {
-                    id: user.id,
-                    login: user.login
-                };
+                req.session.currentUser = user;
                 res.json(Status.makeResult(Status.STATE_OK, Status.STATE_OK_MESSAGE, user));
             } else {
                 console.log(err);

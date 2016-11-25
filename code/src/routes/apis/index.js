@@ -23,5 +23,6 @@ router.all('/site/config', function (req, res) {
 
 
 require("./users/users")(router);
+require("./question/question")(router);
 
 module.exports = router;

@@ -24,6 +24,7 @@ angular.module("login", []).component("login", {
                         //success
                         if (ucai.getCallbackUrl()) {
                             $location.path(ucai.getCallbackUrl());
+                            ucai.resetCallbackUrl();
                         } else {
                             $location.path("/profile");
                         }

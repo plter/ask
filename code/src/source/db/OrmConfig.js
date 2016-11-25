@@ -24,6 +24,12 @@ module.exports = orm.express("mysql://root:@localhost/ask", {
             name: String,
             value: String
         });
+        models.Question = db.define("question", {
+            id: Number,
+            title: String,
+            content: String,
+            member_id: Number
+        });
         next();
     }
 });
