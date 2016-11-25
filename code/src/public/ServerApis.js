@@ -11,5 +11,7 @@ ucai.ServerApis = {
     register: "/apis/users/register",
     updateUser: "/apis/users/update",
     config: "/apis/site/config",
-    submitQuestion: "/apis/question/add"
+    submitQuestion: "/apis/question/add",
+    questionList: "/apis/question/list",
+    getQuestion: "/apis/question/get"
 };

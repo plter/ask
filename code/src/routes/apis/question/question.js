@@ -30,4 +30,20 @@ module.exports = function (router) {
             res.json(Status.makeResult(Status.STATE_NO_TITLE_INPUT, Status.STATE_NO_TITLE_INPUT_MESSAGE));
         }
     });
+
+
+    router.post("/question/list", checkUserIdInput);
+    router.post("/question/list", checkCurrentUser);
+    router.post("/question/list", function (req, res) {
+        req.models.Question.find({member_id: req.body.userid}, function (err, result) {
+            if (!err) {
+                res.json(Status.makeResult(Status.STATE_OK, Status.STATE_OK_MESSAGE, result));
+            } else {
+                res.json(Status.makeResult(err.errno, err.code));
+            }
+        });
+    });
+
+    require("./GetQuestion")(router);
+
 };

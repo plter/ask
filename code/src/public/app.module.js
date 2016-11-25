@@ -10,7 +10,8 @@ var app = angular.module("ask", [
     "login",
     "profile",
     "about",
-    "myask"
+    "myask",
+    "question"
 ]);
 
 app.controller("main", function ($scope, $http, $location) {

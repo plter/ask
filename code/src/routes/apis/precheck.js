@@ -44,7 +44,15 @@ function checkCurrentUser(req, res, next) {
     if (req.session.currentUser && req.session.currentUser.id == req.body.userid) {
         next();
     } else {
-        res.json(Status.makeResult(Status.STATE_ACCESS_DENIED_CAN_NOT_UPDATE_OTHERS, Status.STATE_ACCESS_DENIED_CAN_NOT_UPDATE_OTHERS_MESSAGE));
+        res.json(Status.makeResult(Status.STATE_ACCESS_DENIED_DUE_TO_A_WRONG_USER, Status.STATE_ACCESS_DENIED_DUE_TO_A_WRONG_USER_MESSAGE));
+    }
+}
+
+function checkQuestionIdInput(req, res, next) {
+    if (req.body.questionid) {
+        next();
+    } else {
+        res.json(Status.makeResult(Status.STATE_NO_QUESTION_ID_INPUT, Status.STATE_NO_QUESTION_ID_INPUT_MESSAGE));
     }
 }
 
@@ -52,5 +60,6 @@ module.exports = {
     checkUserIdInput: checkUserIdInput,
     checkUserLoginNameInput: checkUserLoginNameInput,
     checkCurrentUser: checkCurrentUser,
-    checkPasswordInput: checkPasswordInput
+    checkPasswordInput: checkPasswordInput,
+    checkQuestionIdInput: checkQuestionIdInput
 };

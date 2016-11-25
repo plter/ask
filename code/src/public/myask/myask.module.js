@@ -24,7 +24,7 @@ angular.module("myask", []).component("myask", {
 
                     switch (result.data.code) {
                         case 1:
-                            alert("添加问题成功");
+                            getQuestions();
                             break;
                         default:
                             ucai.showAlert("添加问题失败，请稍候重试");
@@ -34,12 +34,29 @@ angular.module("myask", []).component("myask", {
             }
         }
 
+        function getQuestions() {
+            $http.post(ucai.ServerApis.questionList, {
+                userid: ucai.currentUser.id
+            }).then(function (result) {
+                console.log(result);
+                switch (result.data.code) {
+                    case 1:
+                        $scope.questions = result.data.result;
+                        break;
+                    default:
+                        ucai.showAlert("获取问题列表失败");
+                        break;
+                }
+            })
+        }
+
         //init
         (function () {
-            $scope.question = "";
             addListeners();
 
-            if (!ucai.currentUser) {
+            if (ucai.currentUser) {
+                getQuestions();
+            } else {
                 ucai.navigateToLoginPage($location, "/myask");
             }
         })();

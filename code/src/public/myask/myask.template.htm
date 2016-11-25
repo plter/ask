@@ -16,3 +16,13 @@
         </div>
     </div>
 </form>
+
+<div ng-if="questions">
+    <h3>我提出过的问题</h3>
+    <ol>
+        <li ng-repeat="q in questions">
+            <div style="font-weight: bold;"><a href="#!/question/{{q.id}}">{{q.title}}</a></div>
+            <div ng-if="q.content">{{q.content}}</div>
+        </li>
+    </ol>
+</div>
