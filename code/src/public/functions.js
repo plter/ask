@@ -32,4 +32,13 @@ window.ucai = window.ucai || {};
             }
         }
     });
+
+    ucai.formatDate = function (date) {
+        function format(num) {
+            return (num >= 10 ? "" : "0") + num;
+        }
+
+        return date.getFullYear() + "-" + format(date.getMonth() + 1) + "-" + format(date.getDate()) + " " +
+            format(date.getHours()) + ":" + format(date.getMinutes()) + ":" + format(date.getSeconds());
+    }
 })();

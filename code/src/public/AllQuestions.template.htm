@@ -1,0 +1,13 @@
+<div ng-if="questions">
+    <ul ng-repeat="q in questions">
+        <li>
+            <div style="font-weight: bold;">
+                <a href="#!/question/{{q.id}}">{{q.title}}</a>
+            </div>
+            <div style="font-style: italic;">发布时间：{{q.readableTime}}</div>
+            <div ng-if="q.content">
+                {{q.content}}
+            </div>
+        </li>
+    </ul>
+</div>

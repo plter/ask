@@ -28,6 +28,14 @@ module.exports = orm.express("mysql://root:@localhost/ask", {
             id: Number,
             title: String,
             content: String,
+            member_id: Number,
+            time: Date,
+        });
+        models.Answer = db.define("answer", {
+            id: Number,
+            question_id: Number,
+            content: String,
+            time: Date,
             member_id: Number
         });
         next();

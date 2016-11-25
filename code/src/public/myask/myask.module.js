@@ -41,7 +41,11 @@ angular.module("myask", []).component("myask", {
                 console.log(result);
                 switch (result.data.code) {
                     case 1:
-                        $scope.questions = result.data.result;
+                        if (result.data.result && result.data.result.length) {
+                            $scope.questions = result.data.result;
+                        } else {
+                            $scope.questions = null;
+                        }
                         break;
                     default:
                         ucai.showAlert("获取问题列表失败");
