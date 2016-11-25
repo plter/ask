@@ -4,10 +4,13 @@
 
 angular.module("profile", []).component("profile", {
     templateUrl: "profile/profile.template.htm",
-    controller: function ($scope, $http) {
+    controller: function ($scope, $http, $location) {
 
-
-        $scope.formSubmitHandler = function () {
+        /**
+         * 获取用户输入的参数
+         * @returns {{userid: *, login: (*|string|string), gender: *}}
+         */
+        function getData() {
             var params = {
                 userid: $scope.id,
                 login: $scope.login,
@@ -32,45 +35,64 @@ angular.module("profile", []).component("profile", {
             if ($scope.nickname) {
                 params.nickname = $scope.nickname;
             }
+            return params;
+        }
 
-            $http.post(ucai.ServerApis.updateUser, params).then(function (result) {
+        function addListenters() {
+            $scope.formSubmitHandler = function () {
+                $http.post(ucai.ServerApis.updateUser, getData()).then(function (result) {
+                    console.log(result);
+                    switch (result.data.code) {
+                        case 1:
+                            alert("保存成功");
+                            break;
+                        case 1062:
+                            ucai.showAlert("该帐号已被占用");
+                            break;
+                        default:
+                            ucai.showAlert("未知错误");
+                            break;
+                    }
+                });
+            };
+        }
+
+
+        function getCurrentUserInfoFromServer() {
+            $http.post(ucai.ServerApis.getUser, {
+                userid: ucai.currentUser.id
+            }).then(function (result) {
                 console.log(result);
+
                 switch (result.data.code) {
                     case 1:
-                        alert("保存成功");
-                        break;
-                    case 1062:
-                        ucai.showAlert("该帐号已被占用");
+                        $scope.id = result.data.result.id;
+                        $scope.login = result.data.result.login;
+                        $scope.email = result.data.result.email;
+                        $scope.phone = result.data.result.phone;
+                        $scope.id_card = result.data.result.id_card;
+                        $scope.name = result.data.result.name;
+                        $scope.surname = result.data.result.surname;
+                        $scope.nickname = result.data.result.nickname;
+                        $scope.gender = result.data.result.gender;
                         break;
                     default:
-                        ucai.showAlert("未知错误");
+                        ucai.showAlert("无法获取用户信息，请稍候重试");
                         break;
                 }
             });
-        };
+        }
 
+        function init() {
+            addListenters();
 
-        $http.post(ucai.ServerApis.getUser, {
-            userid: ucai.currentUser.id
-        }).then(function (result) {
-            console.log(result);
-
-            switch (result.data.code) {
-                case 1:
-                    $scope.id = result.data.result.id;
-                    $scope.login = result.data.result.login;
-                    $scope.email = result.data.result.email;
-                    $scope.phone = result.data.result.phone;
-                    $scope.id_card = result.data.result.id_card;
-                    $scope.name = result.data.result.name;
-                    $scope.surname = result.data.result.surname;
-                    $scope.nickname = result.data.result.nickname;
-                    $scope.gender = result.data.result.gender;
-                    break;
-                default:
-                    ucai.showAlert("无法获取用户信息，请稍候重试");
-                    break;
+            if (ucai.currentUser) {
+                getCurrentUserInfoFromServer();
+            } else {
+                ucai.navigateToLoginPage($location);
             }
-        });
+        }
+
+        init();
     }
 });

@@ -11,7 +11,7 @@ window.ucai = window.ucai || {};
 
     ucai.navigateToLoginPage = function ($location, callback) {
         ucai.__callbackUrl = callback;
-        $location.path("/register");
+        $location.path("/login");
     };
 
     ucai.getCallbackUrl = function () {

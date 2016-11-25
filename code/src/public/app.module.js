@@ -8,7 +8,8 @@ var app = angular.module("ask", [
     "ngRoute",
     "register",
     "login",
-    "profile"
+    "profile",
+    "about"
 ]);
 
 app.controller("main", function ($scope, $http, $location) {

@@ -22,6 +22,6 @@ router.all('/site/config', function (req, res) {
 });
 
 
-require("./users")(router);
+require("./users/users")(router);
 
 module.exports = router;
