@@ -11,3 +11,5 @@
 * 前端应用框架：angularjs + bootstrap
 * 构建工具：gulp
 * 集成开发环境：WebStorm
+* 前端包管理工具：bower
+* 后端包管理工具：npm
