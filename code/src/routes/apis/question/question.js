@@ -7,6 +7,7 @@ const {
     checkCurrentUser
 } = require("../precheck");
 const Status = require("../../../source/Status");
+const orm = require("orm");
 
 module.exports = function (router) {
 
@@ -38,6 +39,10 @@ module.exports = function (router) {
 
         if (req.body.userid) {
             query.member_id = req.body.userid;
+        }
+
+        if (req.body.keyword) {
+            query.title = orm.like(`%${req.body.keyword}%`);
         }
 
         req.models.Question.find(query, "-time", function (err, result) {
