@@ -7,6 +7,7 @@ const {
     checkCurrentUser
 } = require("../precheck");
 const Status = require("../../../source/Status");
+const orm = require("orm");
 
 module.exports = function (router) {
 
@@ -40,6 +41,10 @@ module.exports = function (router) {
             query.member_id = req.body.userid;
         }
 
+        if (req.body.keyword) {
+            query.title = orm.like(`%${req.body.keyword}%`);
+        }
+
         req.models.Question.find(query, "-time", function (err, result) {
             if (!err) {
                 res.json(Status.makeResult(Status.STATE_OK, Status.STATE_OK_MESSAGE, result));
@@ -50,5 +55,7 @@ module.exports = function (router) {
     });
 
     require("./GetQuestion")(router);
+    require("./AddAnswer")(router);
+    require("./GetAnswers")(router);
 
 };

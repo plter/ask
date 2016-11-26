@@ -3,18 +3,12 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2016-11-25 09:54:20
+-- Generation Time: 2016-11-26 05:08:56
 -- 服务器版本： 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `ask`
@@ -35,6 +29,16 @@ CREATE TABLE `answer` (
   `time` datetime NOT NULL,
   `member_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `answer`
+--
+
+INSERT INTO `answer` (`id`, `question_id`, `content`, `time`, `member_id`) VALUES
+(1, 1, '很好用的', '2016-11-26 11:07:55', 11),
+(2, 5, '其实并不难，只是你要买电脑，比较贵', '2016-11-26 11:42:07', 11),
+(3, 5, '楼上说得对', '2016-11-26 11:42:56', 12),
+(4, 2, '还好吧，就是弱类型有点痛苦', '2016-11-26 11:43:55', 12);
 
 -- --------------------------------------------------------
 
@@ -149,7 +153,7 @@ ALTER TABLE `question`
 -- 使用表AUTO_INCREMENT `answer`
 --
 ALTER TABLE `answer`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- 使用表AUTO_INCREMENT `config`
 --
@@ -165,6 +169,3 @@ ALTER TABLE `member`
 --
 ALTER TABLE `question`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

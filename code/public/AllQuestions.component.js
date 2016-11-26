@@ -4,10 +4,9 @@
 
 angular.module("ask").component("allQuestions", {
     templateUrl: "AllQuestions.template.htm",
-    controller: function ($scope, $http) {
-        $http.post(ucai.ServerApis.questionList).then(function (result) {
+    controller: function ($scope, $http, $routeParams) {
+        $http.post(ucai.ServerApis.questionList, {keyword: $routeParams.keyword}).then(function (result) {
             console.log(result);
-
             switch (result.data.code) {
                 case 1:
                     for (var i = 0; i < result.data.result.length; i++) {

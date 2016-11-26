@@ -17,6 +17,8 @@ angular.module("ask").config(["$locationProvider", "$routeProvider", function ($
         template: "<myask></myask>"
     }).when("/question/:id", {
         template: "<question></question>"
+    }).when("/questions/:keyword", {
+        template: "<all-questions></all-questions>"
     }).otherwise({
         template: "<all-questions></all-questions>"
     });
