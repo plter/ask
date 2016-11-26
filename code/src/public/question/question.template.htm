@@ -1,4 +1,26 @@
 <div ng-if="question">
     <h3>{{question.title}}</h3>
+    <div>
+        <span style="font-size: 12pt;font-weight: bold;">提问者：{{question.userName}}</span>
+        <span style="font-style: italic;font-size: 10pt;">提问时间：{{question.readableTime}}</span>
+    </div>
     <div>{{question.content}}</div>
+</div>
+<div ng-if="answers">
+    <ol ng-repeat="answer in answers">
+        <li>
+            <div>
+                <span style="font-size: 12pt;font-weight: bold;">{{answer.userName}}</span>
+                <span style="font-style: italic;font-size: 10pt;">{{answer.readableTime}}</span>
+            </div>
+            <div>{{answer.content}}</div>
+        </li>
+    </ol>
+</div>
+<div>
+    <div style="font-size: 14pt">我也来回答</div>
+    <form ng-submit="answerFormSubmitHandler()">
+        <div><textarea placeholder="在此输入答案" ng-model="content" style="width: 500px;height: 150px;"></textarea></div>
+        <div><input type="submit" value="提交答案"></div>
+    </form>
 </div>

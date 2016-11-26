@@ -55,5 +55,7 @@ module.exports = function (router) {
     });
 
     require("./GetQuestion")(router);
+    require("./AddAnswer")(router);
+    require("./GetAnswers")(router);
 
 };

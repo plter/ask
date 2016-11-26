@@ -13,5 +13,7 @@ ucai.ServerApis = {
     config: "/apis/site/config",
     submitQuestion: "/apis/question/add",
     questionList: "/apis/question/list",
+    addAnswer: "/apis/question/addanswer",
+    getAnswers: "/apis/question/answers",
     getQuestion: "/apis/question/get"
 };

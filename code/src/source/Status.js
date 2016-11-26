@@ -2,7 +2,7 @@
  * Created by plter on 2016/11/22.
  */
 
-module.exports = {
+const Status = {
     STATE_OK: 1,
     STATE_OK_MESSAGE: "ok",
     STATE_NO_USER_LOGGED: 10001,
@@ -23,6 +23,9 @@ module.exports = {
     STATE_NO_TITLE_INPUT_MESSAGE: "No title input",
     STATE_NO_QUESTION_ID_INPUT: 12002,
     STATE_NO_QUESTION_ID_INPUT_MESSAGE: "No question id input",
+    STATE_NO_COMMENT_CONTENT: 12003,
+    STATE_NO_COMMENT_CONTENT_MESSAGE: "No comment content input",
+
 
     makeResult: function (code, message, result) {
         const obj = {code: code, message: message};
@@ -30,5 +33,13 @@ module.exports = {
             obj.result = result;
         }
         return obj;
+    },
+    makeResultFromOrmError: function (ormError) {
+        return Status.makeResult(ormError.errno, ormError.code);
+    },
+    makeOKResult: function (result) {
+        return Status.makeResult(Status.STATE_OK, Status.STATE_OK_MESSAGE, result);
     }
 };
+
+module.exports = Status;
